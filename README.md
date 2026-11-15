@@ -1,10 +1,24 @@
-# OTP Verification Animation Pro — Codea con Horacio
-Dial OTP estilo caja fuerte futurista. HTML + CSS + JS vanilla, sin dependencias.
-Abre `index.html` (funciona con `file://`) o súbelo a GitHub Pages.
+# OTP Verification Animation Pro
 
-- **Interactive**: arrastra / rueda / flechas ← → ↑ ↓ · Enter, Espacio o clic al centro para confirmar.
-- **Auto Demo**: introduce 5451 solo (ideal para grabar Reels). Reset repite la secuencia.
-- Código demo `5451` (solo visual). Cualquier otro código → ACCESS DENIED.
-- Respeta `prefers-reduced-motion`.
+Dial OTP with a futuristic safe interface. Built with vanilla HTML, CSS, SVG and JavaScript, with no build step or dependencies.
 
-Archivos: `js/dial-controller.js` (física), `js/otp-controller.js` (casillas), `js/audio-controller.js` (Web Audio), `js/app.js` (máquina de estados).
+Open `index.html` directly in a modern browser or publish the project with GitHub Pages. The classic scripts support `file://` usage.
+
+## Interaction
+
+- Drag the dial, scroll over it, or use the arrow keys to rotate.
+- Press Enter, Space or click the center to confirm a digit.
+- The visual demonstration code is `5451`. Any other four digits show ACCESS DENIED and start a fresh attempt automatically.
+- The experience has no manual mode, demo, reset or sound controls.
+- Mechanical, confirmation, unlock, success and error sounds begin after the first user gesture.
+
+The code is for visual demonstration only. No credentials are sent or stored.
+
+## Files
+
+- `index.html`: semantic page structure and SVG dial.
+- `css/styles.css`: visual styles, animation and responsive layout.
+- `js/dial-controller.js`: rotation, inertia and digit selection.
+- `js/otp-controller.js`: four digit slots and validation state.
+- `js/audio-controller.js`: synthesized sound effects through Web Audio API.
+- `js/app.js`: verification flow and animation states.

@@ -11,6 +11,7 @@
   <header class="head">
     <div class="titlebar"><svg class="lock-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><h1>OTP <span>Verification</span></h1></div>
     <p class="sub">ENTER THE 4-DIGIT CODE</p>
+    <p class="code-hint">DEMO CODE <span>5451</span></p>
     <div class="slots" id="slots" aria-label="Entered digits">
       <div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div>
     </div>
@@ -53,12 +54,6 @@
 
   <p class="status" id="status" role="status" aria-live="polite"></p>
 
-  <nav class="controls" aria-label="Controls">
-    <button class="btn" id="btnInteractive" aria-pressed="true">Interactive</button>
-    <button class="btn" id="btnDemo" aria-pressed="false">Auto Demo</button>
-    <button class="btn" id="btnReset">Reset</button>
-    <button class="btn" id="btnSound" aria-pressed="true">Sound ON</button>
-  </nav>
   <footer class="brand">Codea con Horacio</footer>
 </main>
 <!-- Classic scripts (no ES modules) so the project works over file:// -->

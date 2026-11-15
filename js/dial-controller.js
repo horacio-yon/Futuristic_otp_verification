@@ -77,7 +77,7 @@
         this.rawIdx = raw;
         this._mark();
         this.cb.onIndex(this.index);
-        this.cb.onTick();
+        this.cb.onTick?.();
       }
     }
 

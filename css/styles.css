@@ -17,6 +17,8 @@ body{background:radial-gradient(ellipse at 50% 35%,#0e1426 0,var(--bg) 65%);colo
 h1{font-size:clamp(1.15rem,4.6vw,1.7rem);font-weight:600;letter-spacing:.03em}
 h1 span{color:var(--purple)}
 .sub{font-size:.68rem;letter-spacing:.32em;color:#8f98b5}
+.code-hint{margin-top:4px;color:#7f8aa8;font-size:.62rem;font-weight:600;letter-spacing:.2em}
+.code-hint span{margin-left:5px;color:var(--cyan);font-variant-numeric:tabular-nums;letter-spacing:.24em;text-shadow:0 0 10px rgba(53,245,225,.32)}
 .slots{display:flex;gap:calc(var(--stage)*.03);margin-top:8px}
 .slots.shake{animation:shake .5s}
 .slot{--c:var(--purple);width:calc(var(--stage)*.15);min-width:42px;aspect-ratio:1;border-radius:14px;border:1.5px solid rgba(168,117,255,.38);background:linear-gradient(160deg,rgba(24,28,48,.8),rgba(8,10,20,.9));display:grid;place-items:center;font-size:calc(var(--stage)*.075);font-weight:500;transition:border-color .35s,box-shadow .35s}
@@ -73,11 +75,6 @@ h1 span{color:var(--purple)}
 .status[data-kind=ok]{border-color:var(--cyan);background:rgba(53,245,225,.06);box-shadow:0 0 22px rgba(53,245,225,.35);transform:translateY(calc(var(--stage)*-.2))}
 .status[data-kind=err]{border-color:var(--err);background:rgba(255,82,107,.07);box-shadow:0 0 22px rgba(255,82,107,.35)}
 .status[data-kind=hint]{font-size:.7rem;letter-spacing:.12em}
-.controls{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
-.btn{font:inherit;font-size:.78rem;letter-spacing:.08em;color:var(--text);background:var(--surface);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:9px 16px;cursor:pointer;transition:border-color .25s,box-shadow .25s}
-.btn:hover{border-color:var(--cyan)}
-.btn:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
-.btn[aria-pressed=true]{border-color:var(--cyan);box-shadow:0 0 14px rgba(53,245,225,.3)}
 .brand{font-size:.68rem;letter-spacing:.4em;text-transform:uppercase;color:#5d6685}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes intro{from{opacity:0;transform:scale(.82)}to{opacity:1;transform:none}}
