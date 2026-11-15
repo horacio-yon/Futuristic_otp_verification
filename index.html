@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>OTP Verification Animation Pro · Codea con Horacio</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<main class="app" id="app">
+  <header class="head">
+    <div class="titlebar"><svg class="lock-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><h1>OTP <span>Verification</span></h1></div>
+    <p class="sub">ENTER THE 4-DIGIT CODE</p>
+    <div class="slots" id="slots" aria-label="Entered digits">
+      <div class="slot"></div><div class="slot"></div><div class="slot"></div><div class="slot"></div>
+    </div>
+  </header>
+
+  <section class="stage" id="stage">
+    <div class="burst" id="burst"></div>
+    <div class="particles" id="particles"></div>
+    <svg id="dial" viewBox="-300 -300 600 600" role="img" aria-label="Rotary dial with digits 0 to 9">
+      <defs>
+        <linearGradient id="gSeg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--a1)"/><stop offset="1" style="stop-color:var(--a2)"/></linearGradient>
+        <radialGradient id="gFace"><stop offset="0" stop-color="#171e33"/><stop offset="1" stop-color="#080b14"/></radialGradient>
+        <linearGradient id="gMetal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#434c66"/><stop offset=".5" stop-color="#0e121d"/><stop offset="1" stop-color="#2c3550"/></linearGradient>
+      </defs>
+      <circle id="rim" r="296" fill="none" stroke="url(#gMetal)" stroke-width="8"/>
+      <circle id="segs" r="284" pathLength="240"/>
+      <path class="arc" d="M283.8 9.9 A284 284 0 0 1 229.8 166.9"/><path class="arc" d="M-229.8 166.9 A284 284 0 0 1 -283.8 9.9"/>
+      <circle r="272" fill="none" stroke="#1c2336" stroke-width="2"/>
+      <g id="wheelFade"><g id="wheel">
+        <circle r="266" fill="url(#gFace)" stroke="url(#gMetal)" stroke-width="3"/>
+        <g id="ticks"></g><g id="nums"></g>
+        <circle r="132" class="ring1"/><circle r="150" class="ring2"/>
+      </g></g>
+      <polygon id="pointer" points="-18,-314 18,-314 0,-278"/>
+      <g id="center" role="button" tabindex="0" aria-label="Confirm selected digit">
+        <circle id="glow" r="112"/>
+        <circle id="hub" r="108"/>
+        <circle r="98" class="hub-in"/>
+        <text id="num" y="4">0</text>
+        <g id="lock"><g transform="translate(0,-4)">
+          <path id="shackle" d="M-24 -8 V-30 a24 24 0 0 1 48 0 V-8"/>
+          <rect x="-38" y="-8" width="76" height="56" rx="12" class="lock-body"/>
+          <circle cx="0" cy="16" r="7" class="keyhole"/><rect x="-2.5" y="20" width="5" height="14" rx="2" class="keyhole"/>
+          <path id="sparks" d="M52 -50 l14 -10 M58 -30 h18 M52 -10 l14 10"/>
+        </g></g>
+        <path id="check" d="M-46 4 L-14 36 L48 -30" pathLength="100"/>
+      </g>
+    </svg>
+  </section>
+
+  <p class="status" id="status" role="status" aria-live="polite"></p>
+
+  <nav class="controls" aria-label="Controls">
+    <button class="btn" id="btnInteractive" aria-pressed="true">Interactive</button>
+    <button class="btn" id="btnDemo" aria-pressed="false">Auto Demo</button>
+    <button class="btn" id="btnReset">Reset</button>
+    <button class="btn" id="btnSound" aria-pressed="true">Sound ON</button>
+  </nav>
+  <footer class="brand">Codea con Horacio</footer>
+</main>
+<!-- Classic scripts (no ES modules) so the project works over file:// -->
+<script src="js/audio-controller.js"></script>
+<script src="js/dial-controller.js"></script>
+<script src="js/otp-controller.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

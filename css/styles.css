@@ -1,0 +1,90 @@
+:root{--bg:#05070d;--surface:#101522;--cyan:#35f5e1;--purple:#a875ff;--ok:#31f5b1;--err:#ff526b;--text:#f5f7ff;--a1:var(--purple);--a2:#6a3df0;--stage:min(92vw,54dvh,620px)}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:radial-gradient(ellipse at 50% 35%,#0e1426 0,var(--bg) 65%);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+.app{min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:clamp(6px,1.4dvh,16px);padding:clamp(12px,2.4dvh,28px) 16px;position:relative;overflow-x:clip}
+/* Ambient aurora swooshes, as in the reference */
+.app::before,.app::after{content:"";position:fixed;inset:0;pointer-events:none}
+.app::before{background:radial-gradient(ellipse 34% 12% at 6% 90%,rgba(53,245,225,.13),transparent 70%),radial-gradient(ellipse 30% 14% at 98% 55%,rgba(53,245,225,.11),transparent 70%),radial-gradient(ellipse 26% 22% at 2% 40%,rgba(168,117,255,.15),transparent 70%)}
+.app::after{background:radial-gradient(circle at 50% 55%,color-mix(in srgb,var(--a1) 9%,transparent),transparent 55%);transition:background .6s}
+.app.tone-c,.app.verifying,.app.granted{--a1:var(--cyan);--a2:#1fb8c8}
+.app.error{--a1:var(--err);--a2:#ff8a5c}
+.head{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.titlebar{display:flex;align-items:center;gap:10px}
+.titlebar::before,.titlebar::after{content:"";width:clamp(36px,16vw,120px);height:1.5px;background:linear-gradient(90deg,transparent,var(--cyan));opacity:.7}
+.titlebar::after{transform:scaleX(-1)}
+.lock-ico{width:22px;height:22px;color:var(--text)}
+h1{font-size:clamp(1.15rem,4.6vw,1.7rem);font-weight:600;letter-spacing:.03em}
+h1 span{color:var(--purple)}
+.sub{font-size:.68rem;letter-spacing:.32em;color:#8f98b5}
+.slots{display:flex;gap:calc(var(--stage)*.03);margin-top:8px}
+.slots.shake{animation:shake .5s}
+.slot{--c:var(--purple);width:calc(var(--stage)*.15);min-width:42px;aspect-ratio:1;border-radius:14px;border:1.5px solid rgba(168,117,255,.38);background:linear-gradient(160deg,rgba(24,28,48,.8),rgba(8,10,20,.9));display:grid;place-items:center;font-size:calc(var(--stage)*.075);font-weight:500;transition:border-color .35s,box-shadow .35s}
+.slot:nth-child(odd){--c:var(--cyan)}
+.slot.lit{border-color:var(--c);box-shadow:0 0 18px color-mix(in srgb,var(--c) 45%,transparent),inset 0 0 12px color-mix(in srgb,var(--c) 20%,transparent)}
+.app.error .slot.lit{--c:var(--err)}
+.slot.pop{animation:pop .4s ease-out}
+.stage{position:relative;width:var(--stage);aspect-ratio:1;touch-action:none;animation:intro 1.2s cubic-bezier(.2,.8,.2,1) both}
+#dial{width:100%;height:100%;display:block;cursor:grab;overflow:visible;filter:drop-shadow(0 20px 40px rgba(0,0,0,.6));user-select:none;-webkit-user-select:none}
+#dial.grabbing{cursor:grabbing}
+#rim,#segs,.arc,#pointer{transition:opacity .7s,stroke-width .6s,stroke-dasharray .6s}
+#segs{fill:none;stroke:url(#gSeg);stroke-width:6;stroke-dasharray:8 2;opacity:.14;transform-box:fill-box;transform-origin:center;animation:spin 60s linear infinite}
+.verifying #segs{stroke-dasharray:28 92;stroke-width:12;opacity:1;filter:drop-shadow(0 0 8px var(--a1));animation-duration:3s}
+.arc{fill:none;stroke:var(--a1);stroke-width:9;stroke-linecap:round;filter:drop-shadow(0 0 8px var(--a1))}
+.granted #rim,.granted #segs,.granted .arc,.granted #pointer{opacity:0}
+#wheelFade{transform-box:fill-box;transform-origin:center;transition:opacity .9s,transform .9s cubic-bezier(.5,0,.2,1)}
+.granted #wheelFade{opacity:0;transform:scale(.55)}
+#nums,#ticks{transition:opacity .6s}
+.verifying #nums{opacity:0}.verifying #ticks{opacity:.25}
+.tick{stroke:#8a90aa;stroke-width:1.2;opacity:.55}.tick.major{stroke:#fff;stroke-width:2;opacity:.9}
+.num{fill:#dfe3f2;font-size:36px;font-weight:400;text-anchor:middle;dominant-baseline:central;opacity:.8;transition:opacity .2s,fill .2s}
+.num.sel{fill:var(--a1);opacity:1;font-weight:600;filter:drop-shadow(0 0 8px var(--a1))}
+.ring1{fill:none;stroke:var(--a2);stroke-width:2;opacity:.6}
+.ring2{fill:none;stroke:#2a3350;stroke-width:2;stroke-dasharray:2 9;stroke-linecap:round}
+#pointer{fill:#efe6ff;filter:drop-shadow(0 0 8px var(--a1))}
+#center{cursor:pointer;outline:none}
+#center:focus-visible #hub{stroke-width:5}
+#hub{fill:#090c18;stroke:var(--a1);stroke-width:3;transform-box:fill-box;transform-origin:center;filter:drop-shadow(0 0 8px var(--a1))}
+.hub-in{fill:none;stroke:var(--a1);stroke-width:1.5;opacity:.3}
+#center.confirm #hub{animation:confirm .45s ease-out}
+.verifying #hub{animation:hubpulse 1.2s ease-in-out infinite}
+#num{fill:#fff;font-size:118px;font-weight:600;text-anchor:middle;dominant-baseline:central;transition:opacity .4s}
+.show-lock #num{opacity:0}
+#lock{opacity:0;transition:opacity .5s}
+.show-lock #lock{opacity:1}.granted #lock{opacity:0}
+.lock-body{fill:#eaf1ff;transition:fill .4s}
+.unlocked .lock-body{fill:#9ff7ee}
+.keyhole{fill:#0a0e19}
+#shackle{fill:none;stroke:#eaf1ff;stroke-width:8;stroke-linecap:round;transform-box:fill-box;transform-origin:100% 100%;transition:transform .7s cubic-bezier(.2,.8,.2,1),stroke .4s}
+.unlocked #shackle{transform:translateY(-14px) rotate(-28deg);stroke:#9ff7ee}
+#sparks{fill:none;stroke:var(--cyan);stroke-width:4;stroke-linecap:round;opacity:0;transition:opacity .3s .3s}
+.unlocked #sparks{opacity:1}
+#glow{fill:rgba(49,245,177,.08);stroke:var(--cyan);stroke-width:8;opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.6);transition:opacity .8s,transform .9s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 0 18px var(--cyan))}
+.granted #glow{opacity:1;transform:scale(1.35)}
+.granted #hub{opacity:0;transition:opacity .6s}
+#check{fill:none;stroke:var(--cyan);stroke-width:14;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100;filter:drop-shadow(0 0 10px var(--cyan));transition:stroke-dashoffset .8s .55s ease-out}
+.granted #check{stroke-dashoffset:0}
+.burst{position:absolute;inset:0;border-radius:50%;border:2px solid var(--cyan);box-shadow:0 0 60px var(--cyan),inset 0 0 60px var(--cyan);opacity:0;pointer-events:none}
+.burst.go{animation:burst 1.5s ease-out}
+.particles{position:absolute;inset:0;pointer-events:none}
+.p{position:absolute;left:50%;top:50%;width:4px;height:4px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);opacity:0;animation:float var(--t) ease-out var(--d) infinite}
+.status{min-height:1.6em;font-size:clamp(.85rem,3.4vw,1.1rem);letter-spacing:.2em;text-align:center;color:#8f98b5;border:1.5px solid transparent;border-radius:999px;padding:8px 28px;transition:color .3s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.status[data-kind=ok],.status[data-kind=err]{color:var(--text);font-weight:600}
+.status[data-kind=ok]{border-color:var(--cyan);background:rgba(53,245,225,.06);box-shadow:0 0 22px rgba(53,245,225,.35);transform:translateY(calc(var(--stage)*-.2))}
+.status[data-kind=err]{border-color:var(--err);background:rgba(255,82,107,.07);box-shadow:0 0 22px rgba(255,82,107,.35)}
+.status[data-kind=hint]{font-size:.7rem;letter-spacing:.12em}
+.controls{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.btn{font:inherit;font-size:.78rem;letter-spacing:.08em;color:var(--text);background:var(--surface);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:9px 16px;cursor:pointer;transition:border-color .25s,box-shadow .25s}
+.btn:hover{border-color:var(--cyan)}
+.btn:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.btn[aria-pressed=true]{border-color:var(--cyan);box-shadow:0 0 14px rgba(53,245,225,.3)}
+.brand{font-size:.68rem;letter-spacing:.4em;text-transform:uppercase;color:#5d6685}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes intro{from{opacity:0;transform:scale(.82)}to{opacity:1;transform:none}}
+@keyframes pop{0%{transform:scale(.8)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
+@keyframes confirm{50%{transform:scale(.93)}}
+@keyframes hubpulse{50%{transform:scale(1.03)}}
+@keyframes shake{20%,60%{transform:translateX(-9px)}40%,80%{transform:translateX(9px)}}
+@keyframes burst{from{opacity:.9;transform:scale(.5)}to{opacity:0;transform:scale(2.3)}}
+@keyframes float{0%{opacity:0;transform:translate(0,0)}15%{opacity:.9}100%{opacity:0;transform:translate(var(--dx),var(--dy))}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}}
